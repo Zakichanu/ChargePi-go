@@ -7,7 +7,8 @@ import (
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/core"
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/reservation"
 	log "github.com/sirupsen/logrus"
-	"github.com/xBlaz3kx/ChargePi-go/internal/api"
+	"github.com/xBlaz3kx/ChargePi-go/internal/api/grpc"
+	"github.com/xBlaz3kx/ChargePi-go/internal/api/http"
 	"github.com/xBlaz3kx/ChargePi-go/internal/chargepoint/components/auth"
 	connectorManager "github.com/xBlaz3kx/ChargePi-go/internal/chargepoint/components/evse"
 	v16 "github.com/xBlaz3kx/ChargePi-go/internal/chargepoint/v16"
@@ -96,21 +97,16 @@ func Run(isDebug bool, config *settings.Settings, connectors []*settings.EVSE, c
 	handler.SetSettings(config)
 	handler.AddEVSEs(connectors)
 
+	// Expose the API endpoints
+	server := grpc.NewServer(config.Api, handler, tagManager)
+	go server.Run()
+
+	// Expose the ui at http://localhost:4269/
+	ui := http.NewUi()
+	go ui.Serve("0.0.0.0:4269")
+
 	// Finally, connect to the central system
 	handler.Connect(ctx, serverUrl)
-
-	if config.Api.Enabled {
-		var (
-			apiReceiveChannel = make(chan api.Message, 5)
-			apiSendChannel    = make(chan api.Message, 5)
-		)
-
-		// Expose the API endpoints
-		go func() {
-			address := fmt.Sprintf("%s:%d", config.Api.Address, config.Api.Port)
-			grpc.CreateAndRunGrpcServer(address, apiSendChannel, apiReceiveChannel)
-		}()
-	}
 
 Loop:
 	for {
