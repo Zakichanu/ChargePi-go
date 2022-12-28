@@ -11,6 +11,7 @@
 		faBars,
 	} from '@fortawesome/free-solid-svg-icons';
 	import NavItem from '$lib/navigation/NavItem.svelte';
+	import ThemeToggle from '$lib/theme/ThemeToggle.svelte';
 
 	let expand = true;
 </script>
@@ -21,6 +22,7 @@
 			<span class="btn btn-ghost normal-case text-xl">ChargePI</span>
 		</div>
 		<div class="flex-none">
+			<ThemeToggle />
 			<button class="btn btn-square btn-ghost" on:click={() => (expand = !expand)}>
 				<Fa icon={faBars} />
 			</button>
@@ -28,7 +30,7 @@
 	</div>
 
 	<div class="flex h-full space-x-4">
-		<div class="card bg-base-200 shadow-sm grow p-4">
+		<div class="card bg-base-200 shadow-sm grow p-4 min-w-0">
 			<slot />
 		</div>
 		{#if expand}

@@ -4,7 +4,7 @@
 	export const ssr = false;
 
 	const ocppConnected = false;
-	const version = '1.0';
+	const version = '0.1';
 </script>
 
 <div class="flex flex-col h-screen">
@@ -22,7 +22,7 @@
 				class:badge-success={ocppConnected}
 				class:badge-error={!ocppConnected}
 			>
-				OCPP {ocppConnected ? 'Connected' : 'Not Connected'}
+				{ocppConnected ? 'Connected' : 'Not Connected'}
 			</div>
 			<div class="badge badge-info">v{version}</div>
 		</div>
