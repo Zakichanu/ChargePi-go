@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import ThemeToggle from '$lib/theme/ThemeToggle.svelte';
 
 	let loading = false;
 
@@ -12,8 +13,12 @@
 	}
 </script>
 
+<div class="flex justify-end">
+	<ThemeToggle class="p-4" />
+</div>
+
 <div class="grid place-content-center h-3/4">
-	<h1 class="text-5xl font-bold mb-12 text-center text-white">ChargePI</h1>
+	<h1 class="text-5xl font-bold mb-12 text-center">ChargePI</h1>
 
 	<form
 		class="card w-96 bg-base-200 shadow-xl flex flex-col space-y-4 items-center p-10"
