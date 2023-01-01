@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex flex-col h-screen">
-	<div class="h-full">
+	<div class="h-full bg-base-200">
 		<slot />
 	</div>
 
