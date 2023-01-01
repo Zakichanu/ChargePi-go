@@ -21,7 +21,7 @@
 	<h1 class="text-5xl font-bold mb-12 text-center">ChargePI</h1>
 
 	<form
-		class="card w-96 bg-base-200 shadow-xl flex flex-col space-y-4 items-center p-10"
+		class="card w-96 bg-base-300 shadow-xl flex flex-col space-y-4 items-center p-10"
 		on:submit|preventDefault={handleSubmit}
 	>
 		<input

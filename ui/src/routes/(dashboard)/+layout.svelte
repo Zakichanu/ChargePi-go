@@ -3,12 +3,12 @@
 	import {
 		faHome,
 		faBolt,
-		faCreditCard,
-		faDisplay,
 		faCloud,
 		faFilePen,
 		faRightFromBracket,
 		faBars,
+		faMicrochip,
+		faUser,
 	} from '@fortawesome/free-solid-svg-icons';
 	import NavItem from '$lib/navigation/NavItem.svelte';
 	import ThemeToggle from '$lib/theme/ThemeToggle.svelte';
@@ -17,7 +17,7 @@
 </script>
 
 <div class="flex flex-col h-full space-y-4 p-4">
-	<div class="navbar rounded-box bg-base-200 shadow-sm">
+	<div class="navbar rounded-box bg-base-300 shadow-sm">
 		<div class="flex-1">
 			<span class="btn btn-ghost normal-case text-xl">ChargePI</span>
 		</div>
@@ -30,11 +30,11 @@
 	</div>
 
 	<div class="flex h-full space-x-4">
-		<div class="card bg-base-200 shadow-sm grow p-4 min-w-0">
+		<div class="card bg-base-300 shadow-sm grow p-4 min-w-0">
 			<slot />
 		</div>
 		{#if expand}
-			<div class="card bg-base-200 shadow-sm">
+			<div class="card bg-base-300 shadow-sm">
 				<ul class="menu w-64 p-4">
 					<li>
 						<NavItem href="/">
@@ -49,21 +49,21 @@
 						</NavItem>
 					</li>
 					<li>
-						<NavItem href="/card-reader">
-							<Fa icon={faCreditCard} />
-							Card Reader
-						</NavItem>
-					</li>
-					<li>
-						<NavItem href="/display">
-							<Fa icon={faDisplay} />
-							Display
+						<NavItem href="/hardware">
+							<Fa icon={faMicrochip} />
+							Hardware
 						</NavItem>
 					</li>
 					<li>
 						<NavItem href="/ocpp">
 							<Fa icon={faCloud} />
 							OCPP
+						</NavItem>
+					</li>
+					<li>
+						<NavItem href="/users">
+							<Fa icon={faUser} />
+							Users
 						</NavItem>
 					</li>
 					<li>
