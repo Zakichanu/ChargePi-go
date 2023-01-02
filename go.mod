@@ -22,6 +22,7 @@ require (
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/lestrrat-go/strftime v1.0.5 // indirect
 	github.com/lorenzodonini/ocpp-go v0.16.0
+	github.com/mandrigin/gin-spa v0.0.0-20200212133200-790d0c0c7335
 	github.com/nicksnyder/go-i18n/v2 v2.1.2
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
@@ -51,6 +52,7 @@ require (
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/gin-gonic/contrib v0.0.0-20221130124618-7e01895a63f2 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
