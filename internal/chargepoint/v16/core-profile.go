@@ -15,9 +15,21 @@ import (
 func (cp *ChargePoint) OnChangeAvailability(request *core.ChangeAvailabilityRequest) (confirmation *core.ChangeAvailabilityConfirmation, err error) {
 	var response = core.AvailabilityStatusRejected
 
+	cp.logger.Infof("Received request %s", request.GetFeatureName())
+
 	if request.ConnectorId == 0 {
-		// todo check if there are ongoing transactions
+		cp.logger.Infof("Changing availability of all connectors to %s", request.Type)
 		cp.availability = request.Type
+		var connectors = cp.connectorManager.GetConnectors()
+		if request.Type == core.AvailabilityTypeInoperative {
+			for _, c := range connectors {
+				c.SetStatus(core.ChargePointStatusUnavailable, core.NoError)
+			}
+		} else {
+			for _, c := range connectors {
+				c.SetStatus(core.ChargePointStatusAvailable, core.NoError)
+			}
+		}
 		response = core.AvailabilityStatusAccepted
 	} else {
 		// todo
