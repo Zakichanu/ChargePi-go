@@ -32,7 +32,23 @@ func (cp *ChargePoint) OnChangeAvailability(request *core.ChangeAvailabilityRequ
 		}
 		response = core.AvailabilityStatusAccepted
 	} else {
-		// todo
+		// Check if connector exists
+		var connector = cp.connectorManager.GetConnectors()[request.ConnectorId-1]
+		if connector == nil {
+			cp.logger.Infof("Connector %d does not exist", request.ConnectorId)
+			return core.NewChangeAvailabilityConfirmation(response), nil
+		} else {
+			// Checking if there are ongoing transactions
+			chargePointStatus, err := connector.GetStatus()
+			if (chargePointStatus == core.ChargePointStatusCharging) || (chargePointStatus == core.ChargePointStatusFinishing) || (chargePointStatus == core.ChargePointStatusPreparing) || (chargePointStatus == core.ChargePointStatusReserved) {
+				cp.logger.Infof("There is ongoing transaction on connector %s, rejecting request %s : %s", request.ConnectorId, chargePointStatus, err)
+				return core.NewChangeAvailabilityConfirmation(response), nil
+			}
+
+			cp.logger.Infof("Changing availability of connector %d to %s", request.ConnectorId, request.Type)
+			connector.SetStatus(core.ChargePointStatusAvailable, core.NoError)
+			response = core.AvailabilityStatusAccepted
+		}
 	}
 
 	return core.NewChangeAvailabilityConfirmation(response), nil
